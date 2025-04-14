@@ -13,9 +13,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { HealthDataProvider } from '../app/context/HealthDataContext';
-import { InsightsProvider } from '../app/context/InsightsContext';
-import { AffiliateProvider } from '../app/context/AffiliateContext';
+import { useHealthData } from '../app/context/HealthDataContext';
 import ManualDataInput from './ManualDataInput';
 import InsightsPanel from './InsightsPanel';
 import AffiliateProducts from './AffiliateProducts';
@@ -30,7 +28,7 @@ ChartJS.register(
   Legend
 );
 
-const DashboardContent = () => {
+const Dashboard = () => {
   const { healthData, isLoading, error } = useHealthData();
   const [selectedMetric, setSelectedMetric] = useState('steps');
   const [dateRange, setDateRange] = useState('week');
@@ -171,18 +169,6 @@ const DashboardContent = () => {
         <ManualDataInput />
       </div>
     </div>
-  );
-};
-
-const Dashboard = () => {
-  return (
-    <HealthDataProvider>
-      <InsightsProvider>
-        <AffiliateProvider>
-          <DashboardContent />
-        </AffiliateProvider>
-      </InsightsProvider>
-    </HealthDataProvider>
   );
 };
 
