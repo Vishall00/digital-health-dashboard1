@@ -16,6 +16,7 @@ import {
 import { useHealthData } from '../app/context/HealthDataContext';
 import ManualDataInput from './ManualDataInput';
 import InsightsPanel from './InsightsPanel';
+import AffiliateProducts from './AffiliateProducts';
 
 ChartJS.register(
   CategoryScale,
@@ -134,6 +135,11 @@ const Dashboard = () => {
       {/* Insights Panel */}
       <div className="mb-6">
         <InsightsPanel />
+      </div>
+
+      {/* Affiliate Products */}
+      <div className="mb-6">
+        <AffiliateProducts />
       </div>
 
       {/* Detailed Metrics & Manual Input */}
