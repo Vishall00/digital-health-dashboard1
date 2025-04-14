@@ -1,14 +1,16 @@
 'use client'
 
-import Dashboard from '../components/Dashboard'
-import ClientWrapper from '../components/ClientWrapper'
+import dynamic from 'next/dynamic';
+
+// Dynamically import the Dashboard component with no SSR
+const Dashboard = dynamic(() => import('../components/Dashboard'), {
+  ssr: false
+});
 
 export default function Home() {
   return (
-    <ClientWrapper>
-      <main>
-        <Dashboard />
-      </main>
-    </ClientWrapper>
-  )
+    <main>
+      <Dashboard />
+    </main>
+  );
 } 
