@@ -14,7 +14,6 @@ import {
   Legend
 } from 'chart.js';
 import { useHealthData } from '../app/context/HealthDataContext';
-import { InsightsProvider } from '../app/context/InsightsContext';
 import ManualDataInput from './ManualDataInput';
 import InsightsPanel from './InsightsPanel';
 
@@ -71,93 +70,91 @@ const Dashboard = () => {
   ];
 
   return (
-    <InsightsProvider>
-      <div className="p-6">
-        {/* KPI Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-          {kpiData.map((kpi, index) => (
-            <div key={index} className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-shadow">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-500">{kpi.title}</p>
-                  <p className="text-2xl font-bold">{kpi.value}</p>
-                  <p className={`text-sm ${kpi.change.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
-                    {kpi.change}
-                  </p>
-                </div>
-                <div className="bg-gray-100 p-2 rounded-full">
-                  <svg className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={kpi.icon} />
-                  </svg>
-                </div>
+    <div className="p-6">
+      {/* KPI Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+        {kpiData.map((kpi, index) => (
+          <div key={index} className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-shadow">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">{kpi.title}</p>
+                <p className="text-2xl font-bold">{kpi.value}</p>
+                <p className={`text-sm ${kpi.change.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
+                  {kpi.change}
+                </p>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Health Trends Chart */}
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Health Trends</h2>
-            <div className="flex space-x-4">
-              <select
-                value={selectedMetric}
-                onChange={(e) => setSelectedMetric(e.target.value)}
-                className="border rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="steps">Steps</option>
-                <option value="heartRate">Heart Rate</option>
-                <option value="sleep">Sleep</option>
-              </select>
-              <select
-                value={dateRange}
-                onChange={(e) => setDateRange(e.target.value)}
-                className="border rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="day">Today</option>
-                <option value="week">This Week</option>
-                <option value="month">This Month</option>
-              </select>
-            </div>
-          </div>
-          <div className="h-80">
-            <Line data={chartData} options={{ maintainAspectRatio: false }} />
-          </div>
-        </div>
-
-        {/* Insights Panel */}
-        <div className="mb-6">
-          <InsightsPanel />
-        </div>
-
-        {/* Detailed Metrics & Manual Input */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Today's Detail */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold mb-4">Today's Detail</h2>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span>Water Intake</span>
-                <span className="text-blue-500">{healthData.waterIntake} glasses</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Mood</span>
-                <span className="text-green-500">
-                  {healthData.mood === 'happy' ? '😊 Happy' : 
-                   healthData.mood === 'neutral' ? '😐 Neutral' : '😔 Sad'}
-                </span>
-              </div>
-              <div className="text-sm text-gray-500">
-                Last updated: {new Date(healthData.lastUpdated).toLocaleTimeString()}
+              <div className="bg-gray-100 p-2 rounded-full">
+                <svg className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={kpi.icon} />
+                </svg>
               </div>
             </div>
           </div>
+        ))}
+      </div>
 
-          {/* Manual Data Input */}
-          <ManualDataInput />
+      {/* Health Trends Chart */}
+      <div className="bg-white rounded-lg shadow p-6 mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Health Trends</h2>
+          <div className="flex space-x-4">
+            <select
+              value={selectedMetric}
+              onChange={(e) => setSelectedMetric(e.target.value)}
+              className="border rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="steps">Steps</option>
+              <option value="heartRate">Heart Rate</option>
+              <option value="sleep">Sleep</option>
+            </select>
+            <select
+              value={dateRange}
+              onChange={(e) => setDateRange(e.target.value)}
+              className="border rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="day">Today</option>
+              <option value="week">This Week</option>
+              <option value="month">This Month</option>
+            </select>
+          </div>
+        </div>
+        <div className="h-80">
+          <Line data={chartData} options={{ maintainAspectRatio: false }} />
         </div>
       </div>
-    </InsightsProvider>
+
+      {/* Insights Panel */}
+      <div className="mb-6">
+        <InsightsPanel />
+      </div>
+
+      {/* Detailed Metrics & Manual Input */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Today's Detail */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h2 className="text-xl font-semibold mb-4">Today's Detail</h2>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span>Water Intake</span>
+              <span className="text-blue-500">{healthData.waterIntake} glasses</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span>Mood</span>
+              <span className="text-green-500">
+                {healthData.mood === 'happy' ? '😊 Happy' : 
+                 healthData.mood === 'neutral' ? '😐 Neutral' : '😔 Sad'}
+              </span>
+            </div>
+            <div className="text-sm text-gray-500">
+              Last updated: {new Date(healthData.lastUpdated).toLocaleTimeString()}
+            </div>
+          </div>
+        </div>
+
+        {/* Manual Data Input */}
+        <ManualDataInput />
+      </div>
+    </div>
   );
 };
 

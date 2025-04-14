@@ -1,15 +1,26 @@
+'use client';
+
+import { Inter } from 'next/font/google';
 import './globals.css'
+import { HealthDataProvider } from './context/HealthDataContext';
+import { InsightsProvider } from './context/InsightsContext';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Digital Health Dashboard',
-  description: 'A comprehensive health monitoring dashboard',
+  description: 'Track and analyze your health metrics in real-time',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className={inter.className}>
+        <HealthDataProvider>
+          <InsightsProvider>
+            {children}
+          </InsightsProvider>
+        </HealthDataProvider>
       </body>
     </html>
   )
