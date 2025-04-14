@@ -32,19 +32,6 @@ const Dashboard = () => {
   const [selectedMetric, setSelectedMetric] = useState('steps');
   const [dateRange, setDateRange] = useState('week');
 
-  // Sample data for the chart
-  const chartData = {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    datasets: [
-      {
-        label: 'Steps',
-        data: [6500, 5900, 8000, 8100, 5600, 5500, 4000],
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
-      },
-    ],
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -60,6 +47,27 @@ const Dashboard = () => {
       </div>
     );
   }
+
+  if (!healthData) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-gray-500">No health data available</div>
+      </div>
+    );
+  }
+
+  // Sample data for the chart
+  const chartData = {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [
+      {
+        label: 'Steps',
+        data: [6500, 5900, 8000, 8100, 5600, 5500, 4000],
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1,
+      },
+    ],
+  };
 
   const kpiData = [
     { title: 'Daily Steps', value: healthData.steps.toLocaleString(), change: '+12%', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },

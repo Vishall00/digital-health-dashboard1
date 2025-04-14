@@ -1,13 +1,11 @@
 'use client'
 
-import Layout from '../components/Layout'
+import Dashboard from '../components/Dashboard'
 
 export default function Home() {
   return (
-    <Layout>
-      <div className="min-h-screen bg-gray-100">
-        {/* The content is now handled by the Layout component */}
-      </div>
-    </Layout>
+    <main>
+      <Dashboard />
+    </main>
   )
 } 
