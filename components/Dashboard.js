@@ -28,12 +28,12 @@ ChartJS.register(
   Legend
 );
 
-const Dashboard = () => {
-  const { healthData, isLoading, error } = useHealthData();
+export default function Dashboard() {
+  const { healthData, loading, error } = useHealthData();
   const [selectedMetric, setSelectedMetric] = useState('steps');
   const [dateRange, setDateRange] = useState('week');
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -44,7 +44,7 @@ const Dashboard = () => {
   if (error) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div className="text-red-500">Error: {error}</div>
+        <div className="text-red-500">Error loading health data: {error}</div>
       </div>
     );
   }
@@ -170,6 +170,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard; 
+} 
