@@ -1,11 +1,14 @@
 'use client'
 
 import Dashboard from '../components/Dashboard'
+import ClientWrapper from '../components/ClientWrapper'
 
 export default function Home() {
   return (
-    <main>
-      <Dashboard />
-    </main>
+    <ClientWrapper>
+      <main>
+        <Dashboard />
+      </main>
+    </ClientWrapper>
   )
 } 
